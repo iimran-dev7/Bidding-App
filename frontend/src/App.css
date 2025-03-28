@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  background: #f9f9f9;
+  padding: 15px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px auto;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.card input {
+  width: 90%;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.card button {
+  width: 100%;
+  padding: 7px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.nav-buttons {
+  margin-top: 10px;
+}
+
+.nav-buttons button {
+  padding: 8px 16px;
+  margin: 0 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.bid-history {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.bid-history h3 {
+  margin-bottom: 5px;
+}
+
+.bid-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bid-history th,
+.bid-history td {
+  padding: 6px;
+  border: 1px solid #ccc;
+}
+
+.bid-history th {
+  background-color: #f4c542; /* Yellow header */
+  font-weight: bold;
+  text-align: center;
+}
+
+.bid-history td {
+  text-align: center;
+}
