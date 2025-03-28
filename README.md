@@ -22,7 +22,7 @@ A full-stack auction-style bidding app built with **React.js**, **Node.js**, **E
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/bidding-app.git
+git clone https://github.com/iimran-dev7/Bidding-App.git
 cd bidding-app
 ```
 
