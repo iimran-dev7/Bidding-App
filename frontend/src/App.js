@@ -7,7 +7,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/products")
+    fetch("https://bidding-app-caw2.onrender.com/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
