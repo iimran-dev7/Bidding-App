@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
+// Use your live backend URL here
+const API_BASE_URL = "https://bidding-app-caw2.onrender.com";
+
 function App() {
   const [products, setProducts] = useState([]);
   const [bids, setBids] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("https://bidding-app-caw2.onrender.com/api/products")
+    fetch(`${API_BASE_URL}/api/products`)
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Error fetching products:", err));
   }, []);
 
   const handleInputChange = (e, id) => {
@@ -35,23 +39,27 @@ function App() {
       return alert("Your bid must be higher than the current offer.");
     }
 
-    const res = await fetch(`http://localhost:3000/api/products/bid/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bid),
-    });
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/products/bid/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bid),
+      });
 
-    if (res.ok) {
-      alert("Bid submitted!");
-      const updated = await res.json();
-      setProducts((prev) =>
-        prev.map((p) => (p._id === id ? updated : p))
-      );
-    } else {
-      const error = await res.json();
-      alert(error.message || "Bid failed");
+      if (res.ok) {
+        alert("Bid submitted!");
+        const updated = await res.json();
+        setProducts((prev) =>
+          prev.map((p) => (p._id === id ? updated : p))
+        );
+      } else {
+        const error = await res.json();
+        alert(error.message || "Bid failed");
+      }
+    } catch (err) {
+      alert("Network error: Failed to connect to backend.");
     }
   };
 
@@ -59,18 +67,22 @@ function App() {
     const confirm = window.confirm("Are you sure you want to clear all bids?");
     if (!confirm) return;
 
-    const res = await fetch(`http://localhost:3000/api/products/clear-bids/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/products/clear-bids/${id}`, {
+        method: "DELETE",
+      });
 
-    if (res.ok) {
-      const updated = await res.json();
-      setProducts((prev) =>
-        prev.map((p) => (p._id === id ? updated : p))
-      );
-      alert("Bid history cleared.");
-    } else {
-      alert("Failed to clear bid history.");
+      if (res.ok) {
+        const updated = await res.json();
+        setProducts((prev) =>
+          prev.map((p) => (p._id === id ? updated : p))
+        );
+        alert("Bid history cleared.");
+      } else {
+        alert("Failed to clear bid history.");
+      }
+    } catch (err) {
+      alert("Network error: Failed to connect to backend.");
     }
   };
 
@@ -113,7 +125,15 @@ function App() {
 
             <button
               onClick={() => handleClearBids(products[currentIndex]._id)}
-              style={{ backgroundColor: "red", marginTop: "5px", color: "white", padding: "7px", border: "none", borderRadius: "5px", cursor: "pointer" }}
+              style={{
+                backgroundColor: "red",
+                marginTop: "5px",
+                color: "white",
+                padding: "7px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
             >
               Clear Bid History
             </button>
